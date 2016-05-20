@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Results from Json being read and filterd in angular </title>
+    <style>
+      table td{
+        border: 1px black solid;
+        width: 100%;
+      }
+      .odd {
+        background-color: #F5F5F5;
+      }
+      .even {
+        background-color: #FFFFFF;
+        border-style: solid;
+      }
+    </style>
+  </head>
+  <body ng-app=filterApp>
+    <div class="resultsTable">
+      <table ng-controller="resultsTableController">
+        <tr>
+          <td colspan="4" align="center"><h1 ng-bind="heading"></h1>
+        </tr>
+        <tr>
+          <th width="5%">ID</td>
+          <th>Email Address</td>
+          <th>Verified</td>
+          <th>Additional Email</td>
+        </tr>
+        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="r in results">
+          <td width="5%" ng-bind="r.id"></td>
+          <td ng-bind="r.email"></td>
+          <td ng-bind="r.verificationstatus"></td>
+          <td ng-bind="r.facebook_email"></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Java Script files -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
+    <script type="text/javascript" src="results.js"></script>
+  </body>
+</html>
