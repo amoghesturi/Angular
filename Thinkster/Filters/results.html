@@ -2,37 +2,44 @@
 <html>
   <head>
     <title> Results from Json being read and filterd in angular </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <style>
-      table td{
-        border: 1px black solid;
-        width: 100%;
+      .entirePage {
+        margin: 25px;
       }
-      .odd {
-        background-color: #F5F5F5;
+      .the-table {
+        table-layout: fixed;
+        word-wrap: break-word;
       }
-      .even {
-        background-color: #FFFFFF;
-        border-style: solid;
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
       }
     </style>
   </head>
   <body ng-app=filterApp>
-    <div class="resultsTable">
-      <table ng-controller="resultsTableController">
+    <div class="entirePage">
+      <table class="table table-striped the-table" ng-controller="resultsTableController">
         <tr>
-          <td colspan="4" align="center"><h1 ng-bind="heading"></h1>
+          <td colspan="3" align="center">
+            <div class="page-header">
+              <h1 ng-cloak>{{heading}} <small>All the registered users</small></h1>
+            </div>
+          </td>
         </tr>
         <tr>
-          <th width="5%">ID</td>
-          <th>Email Address</td>
-          <th>Verified</td>
-          <th>Additional Email</td>
+          <td colspan="3">
+            <input type="text" class="form-control" placeholder="Search" ng-model="searchItem">
+          </td>
         </tr>
-        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="r in results">
-          <td width="5%" ng-bind="r.id"></td>
-          <td ng-bind="r.email"></td>
-          <td ng-bind="r.verificationstatus"></td>
-          <td ng-bind="r.facebook_email"></td>
+        <tr>
+          <th class="text-center text-uppercase">ID</td>
+          <th class="text-left text-uppercase">Email Address</td>
+          <th class="text-left text-uppercase">Additional Email</td>
+        </tr>
+        <tr ng-repeat="r in results | filter: searchItem" ng-class="{danger: r.verificationstatus !== 'VERIFIED', active: r.verificationstatus === 'VERIFIED'}">
+            <td class="text-center" ng-bind="r.id"></td>
+            <td class="text-left" ng-bind="r.email"></td>
+            <td class="text-left" ng-bind="r.facebook_email"></td>
         </tr>
       </table>
     </div>
